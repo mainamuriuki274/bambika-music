@@ -42,7 +42,7 @@
 *::after {
   box-sizing: border-box;
 }
-}
+
 
 .sidenav {
     height: 100%;
@@ -88,7 +88,7 @@
     -webkit-text-fill-color: transparent;
     font-family: Helvetica Neue, sans-serif;
 }
-.btn-primary {
+.btn_primary {
     border: 1px solid;
     border-image-source: linear-gradient(45deg, #00d0ff, #25ffbf);
     border-image-slice: 1;
@@ -100,7 +100,7 @@
     font-size: 20px;
     width: 100%;
 }
-.btn-primary:hover{
+.btn_primary:hover{
     border-image-source: linear-gradient(180deg, #00d0ff, #25ffbf);
     border-image-slice: 1;
     background: -webkit-linear-gradient(#00d0ff, #25ffbf);
