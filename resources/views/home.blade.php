@@ -77,7 +77,7 @@
         bottom: 0;
         width: 100%;
         height: 100px;
-        background-color: #080808;
+        background-color: #202020;
         z-index: 1;
     }
     a:active{
