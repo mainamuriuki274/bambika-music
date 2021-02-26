@@ -11,162 +11,284 @@
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-        text-decoration: none;
-        font-family: arial
+    #wrapper {
+        overflow-x: hidden;
     }
 
-    body {
-        background: #f3f5f9
+    #sidebar-wrapper {
+        min-height: 100vh;
+        margin-left: -15rem;
+        -webkit-transition: margin .25s ease-out;
+        -moz-transition: margin .25s ease-out;
+        -o-transition: margin .25s ease-out;
+        transition: margin .25s ease-out;
+
     }
 
-    .wrapper {
-        position: relative
+    #sidebar-wrapper .sidebar-heading {
+        padding: 0.875rem 1.25rem;
+        font-size: 1.2rem;
     }
 
-    .sidebar {
+    #sidebar-wrapper .list-group {
+        width: 15rem;
+    }
+
+    #page-content-wrapper {
+        min-width: 100vw;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0;
+    }
+    .white_icons_text{
+        background: transparent;
+        color: darkgray;
+    }
+    .music_card{
+        background-color: #202326;
+        display:inline-block;
+        width: 200px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .music_card:hover{
+        background-color: #282d30;
+    }
+    .music_card_body{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .music_player{
         position: fixed;
-        width: 17%;
-        height: 100%;
-        background: #000000e0;
-        padding: 20px 0;
-        background-color: #000000;
+        bottom: 0;
+        width: 100%;
+        height: 100px;
+        background-color: #080808;
+        z-index: 1;
     }
-
-    .text-muted {
-        color: #adb5bd !important
+    a:active{
+        background: darkgray;
+        color: lightgray;
     }
+    @media (min-width: 768px) {
+        #sidebar-wrapper {
+            margin-left: 0;
+        }
 
-    ul {
-        padding-bottom: 20px
-    }
+        #page-content-wrapper {
+            min-width: 0;
+            width: 100%;
+        }
 
-    ul li a img {
-        background: #66BB6A;
-        top: 0;
-        border: none;
-        width: 20px
-    }
-
-    .sidebar ul li {
-        padding: 15px
-    }
-
-    .sidebar ul li a {
-        color: #fff;
-        display: block
-    }
-
-    .sidebar ul li a .fas {
-        width: 30px;
-        color: #bdb8d7 !important
-    }
-
-    i.fas.fa-home:hover,
-    i.fas.fa-file-invoice:hover,
-    i.fas.fa-video:hover,
-    i.fas.fa-id-badge:hover,
-    i.fas.fa-external-link-alt:hover,
-    i.fas.fa-code:hover,
-    i.far.fa-calendar-alt:hover,
-    i.far.fa-credit-card:hover {
-        color: #304FFE !important
-    }
-
-    .sidebar ul li a .far {
-        width: 30px;
-        color: #bdb8d7 !important
-    }
-
-    .sidebar ul li:hover {
-        background: #000
-    }
-
-    .sidebar ul li a:hover {
-        text-decoration: none
+        #wrapper.toggled #sidebar-wrapper {
+            margin-left: -15rem;
+        }
     }
 </style>
 </head>
 <body>
-<div class="wrapper d-flex">
-    <div style="" class="sidebar"> <small class="text-muted pl-3"><a style="font-size: 25px; text-align: center; letter-spacing: 2px; font-family: Verdana; background: -webkit-linear-gradient(#00d0ff, #25ffbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="navbar-brand " href="{{ url('/') }}">
-                Bambika Music
-            </a></small>
-        <ul>
-            <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#"><i class="far fa-credit-card"></i>Search</a></li>
-            <li><a href="#"><i class="fas fa-file-invoice"></i>Your Library</a></li>
-        </ul>
-        <small class="text-muted px-3">PLAYLISTS</small>
-        <ul>
-            <li><a href="#"><i class="far fa-calendar-alt"></i>Create Playlist</a></li>
-            <li><a href="#"><i class="fas fa-video"></i>Liked Music</a></li>
-            <li><a href="#"><i class="fas fa-id-badge"></i>New Music</a></li>
-            <li><a href="#"><i class="fas fa-id-badge"></i>Trending Music</a></li>
-            <li><a href="#"><i class="fas fa-id-badge"></i>Subscriptions</a></li>
+<div class="d-flex" id="wrapper">
 
-        </ul>
-        <small class="text-muted px-3">
-            <a class="dropdown-item" style="font-size: 20px;" href="{{ route('logout') }}"
-               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-            </a>
+    <!-- Sidebar -->
+    <div style="background-color: black;"  id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <small class="text-muted">
+                <a style="font-size: 25px; text-align: center; letter-spacing: 2px; font-family: Verdana; background: -webkit-linear-gradient(#00d0ff, #25ffbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="navbar-brand " href="{{ url('/') }}">
+                    Bambika Music
+                </a>
+            </small>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="#"  class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-home"> &nbsp; Home</span></a>
+            <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-search"> &nbsp; Search</span></a>
+            <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-book"> &nbsp; Your Library</span></a>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
 
-        </small>
-        <ul></ul>
-        <small class="text-muted px-3">Bambika Music   &copy;  <script>
-                var CurrentYear = new Date().getFullYear()
-                document.write(CurrentYear)
-            </script></small>
+            <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-bars"> &nbsp; Create Playlist</span></a>
+            <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-heart"> &nbsp; Liked Music</span></a>
+            <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-fire"> &nbsp; Trending Music</span></a>
+            <div style="text-align: center;position: fixed;bottom: 0;">
+                <small class="text-muted px-3">Bambika Music   &copy;
+                    <script>
+                        var CurrentYear = new Date().getFullYear()
+                        document.write(CurrentYear)
+                    </script>
+                </small>
+            </div>
+        </div>
     </div>
-</div>
-<nav style="width: 83%;float: right; background-color: #000000;" class="navbar">
-    <div class="container">
-        <ul class="navbar-nav mr-auto">
+    <!-- /#sidebar-wrapper -->
 
-        </ul>
+    <!-- Page Content -->
+    <div style="background: #141414; color: lightgray;" id="page-content-wrapper">
 
-        <!-- Right Side Of Navbar -->
-        <ul class="navbar-nav ml-auto">
-                @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link grad" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
+        <nav style="background: transparent" class="navbar navbar-expand-lg">
+            <button class="btn white_icons_text" id="menu-toggle"><i class="fa fa-bars"></i> Menu</button>
 
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link grad" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item">
-                        <a style="font-family: Helvetica Neue, sans-serif; color: white;" id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a  class="nav-link dropdown-toggle white_icons_text" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hello, {{ Auth::user()->name }}
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
                     </li>
-                @endguest
-            </ul>
+                </ul>
+            </div>
+        </nav>
+        <hr style="background-color: lightgray;">
+        <div class="music_player">
+            <div class="container d-flex">
+                <img style="height: 100px; float: left;" class="p-3" src="/storage/Album_Art/culture.png">
+
+            </div>
         </div>
-</nav>
-<hr>
+        <div class="align-content-center container-fluid">
+            <div class="recents">
+                <h3 class="mt-4">Recent Plays</h3>
+            <div class="card music_card">
+                <div class="card-body music_card_body">
+                    <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                    <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
+                    <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
+                    <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                </div>
+            </div>
+
+            <div class="card music_card">
+                <div class="card-body music_card_body">
+                    <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                    <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
+                    <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
+                    <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                </div>
+            </div>
+
+
+            <div class="card music_card">
+                <div class="card-body music_card_body">
+                    <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                    <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
+                    <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
+                    <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                </div>
+            </div>
+
+            <div class="card music_card">
+                <div class="card-body music_card_body">
+                    <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/drive.png">
+                    <h6 style="color: white;" class="pt-3">Hard drive</h6>
+                    <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Shenseea</a></h7><br>
+                    <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Hard drive</a></h7>
+                </div>
+            </div>
+
+            <div class="card music_card">
+                <div class="card-body music_card_body">
+                    <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/cover.jpg">
+                    <h6 style="color: white;" class="pt-3">Red bone</h6>
+                    <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Childish Gambino</a></h7><br>
+                    <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Red bone</a></h7>
+                </div>
+            </div>
+            </div>
+            <div class="Trending">
+                <h3 class="mt-4">Trending Music</h3>
+                <a style="float: right;color: lightgray;" class="pr-5" href="#">See all</a><br><br>
+                <div class="card music_card">
+                    <div class="card-body music_card_body">
+                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
+                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
+                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                    </div>
+                </div>
+
+                <div class="card music_card">
+                    <div class="card-body music_card_body">
+                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
+                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
+                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                    </div>
+                </div>
+
+                <div class="card music_card">
+                    <div class="card-body music_card_body">
+                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
+                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
+                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                    </div>
+                </div>
+
+                <div class="card music_card">
+                    <div class="card-body music_card_body">
+                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
+                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
+                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                    </div>
+                </div>
+
+                <div class="card music_card">
+                    <div class="card-body music_card_body">
+                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/drive.png">
+                        <h6 style="color: white;" class="pt-3">Hard drive</h6>
+                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Shenseea</a></h7><br>
+                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Hard drive</a></h7>
+                    </div>
+                </div>
+
+                <div class="card music_card">
+                    <div class="card-body music_card_body">
+                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/cover.jpg">
+                        <h6 style="color: white;" class="pt-3">Red bone</h6>
+                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Childish Gambino</a></h7><br>
+                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Red bone</a></h7>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 </body>
 </html>

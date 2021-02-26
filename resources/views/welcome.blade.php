@@ -407,7 +407,7 @@
             </nav>
         </header>
         <div class="centered pt-5">
-            <h1 style="font-family: mountains;font-size:120px;color: darkgrey;">Give in to the Groove</h1>
+            <h1 style="font-family: Verdana;font-size:120px;color: darkgrey;">Give in to the Groove</h1>
             <h2 style="color: darkgrey;"><i><b>"One good thing about music, when it hits you, you feel no pain"</b></i> -Bob Marley</h2>
             @if (Route::has('register'))
                 @auth
