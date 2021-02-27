@@ -30,6 +30,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/add', function () {
-    return view('/creator/add');
-});
+Route::post('/addmusic','App\Http\Controllers\SongsController@store');
+Route::get('/add','App\Http\Controllers\SongsController@create');

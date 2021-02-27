@@ -67,6 +67,7 @@
     .music_card:hover{
         background-color: #282d30;
     }
+
     .music_card_body{
         white-space: nowrap;
         overflow: hidden;
@@ -97,6 +98,28 @@
         #wrapper.toggled #sidebar-wrapper {
             margin-left: -15rem;
         }
+        .img_container .play_button{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            background: transparent;
+            color: white;
+            font-size: 40px;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .play_button{
+            display: none;
+        }
+        .music_card:hover .play_button {
+            display: block;
+        }
+
     }
 </style>
 </head>
@@ -218,58 +241,22 @@
             <div class="Trending">
                 <h3 class="mt-4">Trending Music</h3>
                 <a style="float: right;color: lightgray;" class="pr-5" href="#">See all</a><br><br>
-                <div class="card music_card">
-                    <div class="card-body music_card_body">
-                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
-                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
-                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
-                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
+                @foreach($songs as $song)
+                    <a href="/song/{{$song->id}}">
+                    <div class="card music_card">
+                        <div class="card-body music_card_body">
+                            <div class="img_container container">
+                                <img style="width: 100%; margin: 0; padding: 0;" src="/storage/{{$song->album_art}}">
+                                <button class="play_button btn" id="menu-toggle"><i style="background: -webkit-linear-gradient(#00d0ff, #25ffbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="fa fa-play"></i></button>
+                            </div>
+                            <h6 style="color: white;" class="pt-3">{{$song->song_name}}</h6>
+                            <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="/song/{{$song->artist}}">{{$song->artist}}</a></h7><br>
+                            <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#/song/{{$song->album_name}}">{{$song->album_name}}</a></h7>
+                        </div>
                     </div>
-                </div>
+                    </a>
+                @endforeach
 
-                <div class="card music_card">
-                    <div class="card-body music_card_body">
-                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
-                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
-                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
-                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
-                    </div>
-                </div>
-
-                <div class="card music_card">
-                    <div class="card-body music_card_body">
-                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
-                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
-                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
-                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
-                    </div>
-                </div>
-
-                <div class="card music_card">
-                    <div class="card-body music_card_body">
-                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
-                        <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
-                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
-                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
-                    </div>
-                </div>
-
-                <div class="card music_card">
-                    <div class="card-body music_card_body">
-                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/drive.png">
-                        <h6 style="color: white;" class="pt-3">Hard drive</h6>
-                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Shenseea</a></h7><br>
-                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Hard drive</a></h7>
-                    </div>
-                </div>
-
-                <div class="card music_card">
-                    <div class="card-body music_card_body">
-                        <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/cover.jpg">
-                        <h6 style="color: white;" class="pt-3">Red bone</h6>
-                        <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Childish Gambino</a></h7><br>
-                        <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Red bone</a></h7>
-                    </div>
                 </div>
             </div>
         </div>
