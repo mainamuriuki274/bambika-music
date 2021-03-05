@@ -22,116 +22,62 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<style>
-    #wrapper {
-        overflow-x: hidden;
-    }
-
-    #sidebar-wrapper {
-        min-height: 100vh;
-        margin-left: -15rem;
-        -webkit-transition: margin .25s ease-out;
-        -moz-transition: margin .25s ease-out;
-        -o-transition: margin .25s ease-out;
-        transition: margin .25s ease-out;
-
-    }
-
-    #sidebar-wrapper .sidebar-heading {
-        padding: 0.875rem 1.25rem;
-        font-size: 1.2rem;
-    }
-
-    #sidebar-wrapper .list-group {
-        width: 15rem;
-    }
-
-    #page-content-wrapper {
-        min-width: 100vw;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        margin-left: 0;
-    }
-    .white_icons_text{
-        background: transparent;
-        color: darkgray;
-    }
-    .music_card{
-        background-color: #202326;
-        display:inline-block;
-        width: 200px;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .music_card:hover{
-        background-color: #282d30;
-    }
-
-    .music_card_body{
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .music_player{
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 100px;
-        background-color: #202020;
-        z-index: 1;
-    }
-    a:active{
-        background: darkgray;
-        color: lightgray;
-    }
-    @media (min-width: 768px) {
-        #sidebar-wrapper {
-            margin-left: 0;
-        }
-
-        #page-content-wrapper {
-            min-width: 0;
-            width: 100%;
-        }
-
-        #wrapper.toggled #sidebar-wrapper {
-            margin-left: -15rem;
-        }
-        .img_container .play_button{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            background: transparent;
-            color: white;
-            font-size: 40px;
-            padding: 12px 24px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .play_button{
-            display: none;
-        }
-        .music_card:hover .play_button {
-            display: block;
-        }
-
-    }
-</style>
+    <link rel="stylesheet" href="{{ URL::asset('css/homestyles.css') }}">
 </head>
 <body>
+<div style="background: #141414; position: fixed; bottom: 0; z-index: 1; max-width: 100% " class="container w-100 pt-1 pb-3">
+    <div class="row">
+        <div class="col-3">
+            <div class="row h-100">
+                <div class="col-4  mt-3 song_art">
+                    <img src="/storage/Album_Art/2XTEmbbYusQ1qYJtm5zipudXiNJksOK6NYV8vykD.png" class="playing_art" id="track_image">
+                </div>
+                <div class="col-8">
+                    <div class="song_details">
+                        <a id="title" href="#">Narcos</a>
+                        <div class="w-100 h-100 d-flex">
+                            <a id="artist" href="#">Migos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+
+            <!---- middle part --->
+            <div class="middle d-flex align-items-center justify-content-center w-100">
+                <button onclick="shuffle()" id="shuffle"><i class="fa fa-random"></i></button>
+                <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+                <button onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
+                <button onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+                <button onclick="next_song()" id="repeat"><i class="fa fa-repeat"></i></button>
+            </div>
+
+            <!--- song duration part --->
+            <div class="duration w-100 mt-5">
+                <input type="range" min="0" max="100" value="0" id="duration_slider" onchange="change_duration()">
+            </div>
+        </div>
+        <div class="col-3">
+            <button id="auto" class="auto mt-3 mr-3 p-1 ml-5" onclick="autoplay_switch()">Auto play</button>
+            <div class="volume">
+                <p id="volume_show">100</p>
+                <i class="fa fa-volume-up" aria-hidden="true" onclick="mute_sound()" id="volume_icon"></i>
+                <input type="range" min="0" max="100" value="100" onchange="volume_change()" id="volume">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
     <div style="background-color: black;"  id="sidebar-wrapper">
         <div class="sidebar-heading">
             <small class="text-muted">
-                <a style="font-size: 25px; text-align: center; letter-spacing: 2px; font-family: Verdana; background: -webkit-linear-gradient(#00d0ff, #25ffbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="navbar-brand " href="{{ url('/') }}">
-                    Bambika Music
+                <a style="font-size: 25px; text-align: left; letter-spacing: 2px; font-family: Verdana; background: -webkit-linear-gradient(#00d0ff, #25ffbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="navbar-brand " href="{{ url('/') }}">
+                    Bambika <br>Music
                 </a>
             </small>
         </div>
@@ -143,7 +89,7 @@
 
             <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-bars"> &nbsp; Create Playlist</span></a>
             <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-heart"> &nbsp; Liked Music</span></a>
-            <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-fire"> &nbsp; Trending Music</span></a>
+            <a href="#" class="list-group-item list-group-item-action white_icons_text"><span class="fa fa-fire"> &nbsp; Trending</span></a>
             <div style="text-align: center;position: fixed;bottom: 0;">
                 <small class="text-muted px-3">Bambika Music   &copy;
                     <script>
@@ -183,14 +129,8 @@
             </div>
         </nav>
         <hr style="background-color: lightgray;">
-        <div class="music_player">
-            <div class="container d-flex">
-                <img style="height: 100px; float: left;" class="p-3" src="/storage/Album_Art/culture.png">
-
-            </div>
-        </div>
         <div class="align-content-center container-fluid">
-            <div class="recents">
+        <!--    <div class="recents">
                 <h3 class="mt-4">Recent Plays</h3>
             <div class="card music_card">
                 <div class="card-body music_card_body">
@@ -213,7 +153,7 @@
 
             <div class="card music_card">
                 <div class="card-body music_card_body">
-                    <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/culture.png">
+                    <img style="width: 100%; margin: 0; padding: 0;" src="/storage/Album_Art/2XTEmbbYusQ1qYJtm5zipudXiNJksOK6NYV8vykD.png">
                     <h6 style="color: white;" class="pt-3">Walk It Talk It </h6>
                     <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="#">Migos</a></h7><br>
                     <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#">Culture</a></h7>
@@ -238,15 +178,25 @@
                 </div>
             </div>
             </div>
+            -->
             <div class="Trending">
-                <h3 class="mt-4">Trending Music</h3>
-                <a style="float: right;color: lightgray;" class="pr-5" href="#">See all</a><br><br>
+                <div style="max-width: 100%;" class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <h3 style="text-align: left;" class="mt-4">Trending Music</h3>
+                        </div>
+                        <div class="pt-4 col-2 pr-4 text-right">
+                            <a style="color: lightgray;" href="#">See all</a>
+                        </div>
+                    </div>
+                </div>
+
                 @foreach($songs as $song)
                     <a href="/song/{{$song->id}}">
-                    <div class="card music_card">
+                    <div class="card m-1 music_card">
                         <div class="card-body music_card_body">
-                            <div class="img_container container">
-                                <img style="width: 100%; margin: 0; padding: 0;" src="/storage/{{$song->album_art}}">
+                            <div style="max-width: 100%;" class="img_container">
+                                <img style="max-width: 100%;" src="/storage/{{$song->album_art}}">
                                 <button class="play_button btn" id="menu-toggle"><i style="background: -webkit-linear-gradient(#00d0ff, #25ffbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="fa fa-play"></i></button>
                             </div>
                             <h6 style="color: white;" class="pt-3">{{$song->song_name}}</h6>
@@ -263,19 +213,13 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
 <!-- /#wrapper -->
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Menu Toggle Script -->
+<script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
 <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
 </script>
 </body>
 </html>
