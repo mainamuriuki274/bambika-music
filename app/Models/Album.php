@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Song extends Model
+class Album extends Model
 {
     use HasFactory;
-    protected $guarded = [];
     public function artist(){
-        return $this->belongsTo(Artist::class);
+        $this->belongsTo(Artist::class);
     }
-    public function album(){
-        return $this->belongsTo(Album::class);
+    public function song(){
+        $this->hasMany(Song::class);
     }
 }

@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
@@ -31,4 +32,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::post('/addmusic','App\Http\Controllers\SongsController@store');
-Route::get('/add','App\Http\Controllers\SongsController@create');
+Route::get('/album','App\Http\Controllers\SongsController@index');
+
+Route::get('/admin/home','App\Http\Controllers\AdminController@index');

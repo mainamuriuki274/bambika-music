@@ -87,7 +87,9 @@ a:active{
     }
 
 }
-
+.duration_time{
+    color: darkgrey;
+}
 .playing_art {
     height: 75px;
     width: 75px;
@@ -190,6 +192,8 @@ input[type=range]{
 #duration_slider {
     width: 100%;
     left:0;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 #play{
     background-image: linear-gradient(#00d0ff, #25ffbf);
