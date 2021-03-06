@@ -17,7 +17,7 @@ class CreateAlbumsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('art');
-            $table->string('approved');
+            $table->boolean('approved')->default(false);
             $table->unsignedBigInteger('artist_id');
             $table->timestamps();
 

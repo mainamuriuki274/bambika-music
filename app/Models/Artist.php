@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Artist extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function album(){
         return $this->hasMany(Album::class);
     }

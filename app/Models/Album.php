@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Album extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function artist(){
-        $this->belongsTo(Artist::class);
+       return $this->belongsTo(Artist::class);
     }
     public function song(){
-        $this->hasMany(Song::class);
+        return $this->hasMany(Song::class);
     }
 }

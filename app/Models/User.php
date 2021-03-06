@@ -41,7 +41,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function songs(){
-        return $this->hasMany(Song::class);
-    }
 }

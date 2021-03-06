@@ -31,7 +31,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::post('/addmusic','App\Http\Controllers\SongsController@store');
-Route::get('/album','App\Http\Controllers\SongsController@index');
+Route::post('/admin/album','App\Http\Controllers\Admin\AlbumsController@store');
+Route::get('/admin/home','App\Http\Controllers\Admin\AlbumsController@index');
+Route::get('/admin/album/{album}/edit', 'App\Http\Controllers\Admin\AlbumsController@edit');
+Route::patch('/admin/album/{album}', 'App\Http\Controllers\Admin\AlbumsController@update');
 
-Route::get('/admin/home','App\Http\Controllers\AdminController@index');
+

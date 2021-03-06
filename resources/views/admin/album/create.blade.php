@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has('alert-' . $msg))
+                <p style="text-align: center;" class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+            @endif
+        @endforeach
+    </div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -8,7 +15,7 @@
                     <div class="card-header text-center"><b>Add New Album</b></div>
 
                     <div class="card-body">
-        <form action="/addmusic" enctype="multipart/form-data" method="post">
+        <form action="/admin/album" enctype="multipart/form-data" method="post">
             @csrf
             <div class="row">
                 <div class="col-8 offset-2">
