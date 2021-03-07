@@ -14,7 +14,7 @@
                 <img src="/storage/{{ $album->art }}" class="img-fluid w-100">
                 <h2>Album: {{ $album->name }}</h2>
                 <h2>Artist: {{ $album->artist->name }}</h2>
-                <a href="/admin/song/{{ $album->id }}/edit"><button class="btn btn-primary w-100"><i class="fa fa-edit"></i> Edit Album Details</button></a>
+                <a href="/admin/album/{{ $album->id }}/edit"><button class="btn btn-primary w-100"><i class="fa fa-edit"></i> Edit Album Details</button></a>
             </div>
             <div class="col-9">
                 <!-- Button trigger modal -->
@@ -40,7 +40,7 @@
                             <td>{{$song->song_name}}</td>
                             <td>
                                 <audio controls controlsList="nodownload">
-                                    <source src="/storage/{{ $song->song }}"  autoplay="false">
+                                    <source src="/storage/{{ $song->song_path }}"  autoplay="false">
                                     Your browser does not support the audio element.
                                 </audio>
 
@@ -88,14 +88,14 @@
 
 
                                 <div class="form-group row">
-                                    <label for="song" class="col-md-4 col-form-label">Song File</label>
-                                    <br>
+                                    <label for="song_file" class="col-md-4 col-form-label">Song File</label>
+
                                     <label style="border: 1px solid #ccc; display: inline-block; padding: 6px 12px;cursor: pointer;" class="custom-file-upload">
-                                        <input style="display: none; " type="file" accept="audio/*" class="form-control-file" id="album_art" name="song"/>
+                                        <input style="display: none; " type="file" accept="audio/*" class="form-control-file" id="song_file" name="song_file"/>
                                         <i class="fa fa-cloud-upload"></i> Upload Song
                                     </label>
-                                    @if ($errors->has('song'))
-                                        <strong>{{ $errors->first('song') }}</strong>
+                                    @if ($errors->has('song_file'))
+                                        <strong>{{ $errors->first('song_file') }}</strong>
                                     @endif
                                 </div>
 

@@ -30,6 +30,11 @@
                                                value="{{ old('album_name') ?? $album->name }}"
                                                name="album_name" autofocus>
 
+                                        <input id="album_id"
+                                               type="text"
+                                               value="{{ $album->id }}"
+                                               name="album_id" hidden >
+
                                         @if ($errors->has('album_name'))
                                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('album_name') }}</strong>
@@ -45,6 +50,11 @@
                                                value="{{ old('artist') ?? $album->artist->name }}"
                                                class="form-control{{ $errors->has('artist') ? ' is-invalid' : '' }}"
                                                name="artist" autofocus>
+
+                                        <input id="artist_id"
+                                               type="text"
+                                               value="{{ $album->artist->id }}"
+                                               name="artist_id" hidden >
 
                                         @if ($errors->has('artist'))
                                             <span class="invalid-feedback" role="alert">

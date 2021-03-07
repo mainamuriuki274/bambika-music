@@ -26,7 +26,7 @@
                                         <input id="song_name"
                                                type="text"
                                                class="form-control{{ $errors->has('song_name') ? ' is-invalid' : '' }}"
-                                               name="song_name" autofocus
+                                               name="song_name" autofocus required
                                                value="{{ old('song_name') ?? $song->song_name }}">
 
                                         @if ($errors->has('song_name'))
@@ -38,18 +38,18 @@
 
 
                                     <div class="form-group row">
-                                        <label for="song" class="col-md-4 col-form-label">Song File</label>
-                                        <br>
+                                        <label for="song_file" class="col-md-4 col-form-label">Song File</label>
                                         <audio controls controlsList="nodownload">
                                             <source src="/storage/{{ $song->song }}"  autoplay="false">
                                             Your browser does not support the audio element.
                                         </audio>
+
                                         <label style="border: 1px solid #ccc; display: inline-block; padding: 6px 12px;cursor: pointer;" class="custom-file-upload">
-                                            <input style="display: none; " type="file" accept="audio/*" class="form-control-file" id="song" name="song"/>
+                                            <input style="display: none; " type="file" accept="audio/*" class="form-control-file" id="song_file" name="song_file"/>
                                             <i class="fa fa-cloud-upload"></i> Upload Song
                                         </label>
-                                        @if ($errors->has('song'))
-                                            <strong>{{ $errors->first('song') }}</strong>
+                                        @if ($errors->has('song_file'))
+                                            <strong>{{ $errors->first('song_file') }}</strong>
                                         @endif
                                     </div>
 

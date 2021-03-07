@@ -27,9 +27,9 @@ class AlbumsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Album $album)
     {
-        //
+        return view('/admin/song/add',compact('album'));
     }
 
     /**
@@ -49,25 +49,14 @@ class AlbumsController extends Controller
         $imagePath = request('album_art')->store('Album_Art','public');
         $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200,1200);
         $image->save();
-        $artist = Artist::where('name',$data['artist'])->first();
-
-            DB::transaction(function () use ($artist, $imagePath, $data) {
-                if($artist === null) {
-                    Artist::create([
-                        'name' => $data['artist'],
-                    ]);
-                }
-                $artist = Artist::where('name',$data['artist'])->first();
-
-                Album::create([
-                    'artist_id' => $artist->id,
+        $artist = Artist::firstOrCreate(['name' => $data['artist']]);
+        $album = $artist->album()->create([
                     'name' => $data['album_name'],
                     'art' => $imagePath,
                 ]);
-            });
-        Session::flash('alert-success', 'Successfully Created Album: '.$data['album_name'].' For Artist: '.$data['artist']);
-        return redirect('/admin/home');
 
+        Session::flash('alert-success', 'Successfully Created Album: '.$data['album_name'].' For Artist: '.$data['artist']);
+        return redirect('/admin/album/'.$album->id);
     }
 
     /**
@@ -103,6 +92,8 @@ class AlbumsController extends Controller
     {
         $data = $request->validate([
             'artist' => 'required',
+            'artist_id' => 'required',
+            'album_id' => 'required',
             'album_name' => 'required',
             'album_art' => '',
         ]);
@@ -112,25 +103,27 @@ class AlbumsController extends Controller
             $image->save();
 
             DB::transaction(function () use ($imagePath, $data) {
-                DB::table('artists')->update([ 'name' => $data['artist']]);
 
-                $artist = Artist::where('name',$data['artist'])->first();
-
-                DB::table('albums')->update([ 'name' => $data['album_name'], 'artist_id' => $artist->id,'art' => $imagePath]);
-
+                Artist::where('id',$data['artist_id'])->update([ 'name' => $data['artist']]);
+                Album::where('id',$data['album_id'])->update([
+                    'name' => $data['album_name'],
+                    'artist_id' => $data['artist_id'],
+                    'art' => $imagePath,
+                ]);
             });
         }
 
         DB::transaction(function () use ( $data) {
-            DB::table('artists')->update([ 'name' => $data['artist']]);
 
-            $artist = Artist::where('name',$data['artist'])->first();
-
-            DB::table('albums')->update([ 'name' => $data['album_name'], 'artist_id' => $artist->id]);
+            Artist::where('id',$data['artist_id'])->update([ 'name' => $data['artist']]);
+            Album::where('id',$data['album_id'])->update([
+                'name' => $data['album_name'],
+                'artist_id' => $data['artist_id'],
+            ]);
 
         });
         Session::flash('alert-success', 'Successfully Updated Details of Album: '.$data['album_name']);
-        return redirect('/admin/home');
+        return redirect('/admin/album/'.$data['album_id']);
     }
 
     /**

@@ -18,9 +18,9 @@ class SongsController extends Controller
      *
      * @return Response
      */
-    public function index(Album $album)
+    public function index()
     {
-        return view('/admin/song/add',compact('album'));
+
 
     }
 
@@ -44,15 +44,13 @@ class SongsController extends Controller
     {
         $data = $request->validate([
             'song_name' => 'required',
-            'song' => 'required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav,m4a,mp4',
+            'song_file' => 'required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav,m4a,mp4',
         ]);
-
-        $songPath = request('song')->store('Songs','public');
+        $songPath = request('song_file')->store('Songs','public');
 
         $album->song()->create([
             'song_name' => $data['song_name'],
-            'year' => 1999,
-            'song' => $songPath,
+            'song_path' => $songPath,
         ]);
 
         Session::flash('alert-success', 'Successfully Added Song: '.$data['song_name']);
@@ -88,20 +86,25 @@ class SongsController extends Controller
      * @param Song $song
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request,Song $song)
     {
 
         $data = $request->validate([
             'song_name' => 'required',
-            'song' => '',
+            'song_file' => '',
         ]);
-        if(request('song')) {
-            $songPath = request('song')->store('Songs', 'public');
-            DB::table('songs')->update([ 'song_name' => $data['song_name'], 'song' => $songPath]);
+        if(request('song_file')) {
+            $songPath = request('song_file')->store('Songs', 'public');
+
+            $song->update([
+                'song_name' => $data['song_name'],
+                'song_path' => $songPath
+            ]);
         }
-        DB::table('songs')->update([ 'song_name' => $data['song_name']]);
+        $song->update($data);
+
         Session::flash('alert-success', 'Successfully Updated Song: '.$data['song_name']);
-        return redirect('/admin/album/{$song->album->id}');
+        return redirect('/admin/album/'.$song->album->id);
     }
 
     /**

@@ -27,6 +27,6 @@ class HomeController extends Controller
     {
         $songs = Song::with(['album','artist'])->get();
 
-        return view('/home', ['song' => $songs]);
+        return view('/home', ['songs' => $songs]);
     }
 }
