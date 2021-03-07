@@ -202,12 +202,12 @@
                     <div class="card m-1 music_card">
                         <div class="card-body music_card_body">
                             <div style="max-width: 100%;" class="img_container">
-                                <img style="max-width: 100%;" src="/storage/{{$song->album_art}}">
+                                <img style="max-width: 100%;" src="/storage/{{$song->album->art}}">
                                 <button class="play_button btn" id="menu-toggle"><i style="background: -webkit-linear-gradient(#00d0ff, #25ffbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="fa fa-play"></i></button>
                             </div>
                             <h6 style="color: white;" class="pt-3">{{$song->song_name}}</h6>
-                            <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="/song/{{$song->artist}}">{{$song->artist}}</a></h7><br>
-                            <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#/song/{{$song->album_name}}">{{$song->album_name}}</a></h7>
+                            <h7 style="color: lightgray;">Artist: <a style="color: lightgray;" href="/song/{{$song->album->artist->name}}">{{$song->album->artist->name}}</a></h7><br>
+                            <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#/song/{{$song->album->name}}">{{$song->album->name}}</a></h7>
                         </div>
                     </div>
                     </a>

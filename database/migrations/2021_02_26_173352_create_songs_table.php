@@ -13,11 +13,10 @@ class CreateSongsTable extends Migration
      */
     public function up()
     {
-        Schema::create('songs', function (Blueprint $table) {
+        Schema::create('song', function (Blueprint $table) {
             $table->id();
             $table->string('song_name');
             $table->string('song');
-            $table->integer('year');
             $table->unsignedBigInteger('album_id');
             $table->timestamps();
 
@@ -32,6 +31,6 @@ class CreateSongsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('songs');
+        Schema::dropIfExists('song');
     }
 }

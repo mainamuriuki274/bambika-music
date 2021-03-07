@@ -37,3 +37,8 @@ Route::get('/admin/album/{album}/edit', 'App\Http\Controllers\Admin\AlbumsContro
 Route::patch('/admin/album/{album}', 'App\Http\Controllers\Admin\AlbumsController@update');
 
 
+Route::get('/admin/song/{album}', 'App\Http\Controllers\Admin\SongsController@index');
+Route::get('/admin/song/{song}', 'App\Http\Controllers\Admin\SongsController@destroy');
+Route::post('/admin/song/{album}','App\Http\Controllers\Admin\SongsController@store');
+Route::get('/admin/song/{song}/edit', 'App\Http\Controllers\Admin\SongsController@edit');
+Route::patch('/admin/song/{song}', 'App\Http\Controllers\Admin\SongsController@update');

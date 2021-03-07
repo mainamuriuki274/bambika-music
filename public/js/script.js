@@ -24,7 +24,7 @@ let Playing_song = false;
 let track = document.createElement('audio');
 
 
-//All songs list
+//All song list
 let All_song = [
     {
         name: "Narcos",

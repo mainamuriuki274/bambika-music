@@ -3,24 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Album;
+use App\Models\Student;
+use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Session;
 
 class SongsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(Album $album)
     {
-        //
+        return view('/admin/song/add',compact('album'));
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -31,18 +38,32 @@ class SongsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Album $album)
     {
-        //
+        $data = $request->validate([
+            'song_name' => 'required',
+            'song' => 'required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav,m4a,mp4',
+        ]);
+
+        $songPath = request('song')->store('Songs','public');
+
+        $album->song()->create([
+            'song_name' => $data['song_name'],
+            'year' => 1999,
+            'song' => $songPath,
+        ]);
+
+        Session::flash('alert-success', 'Successfully Added Song: '.$data['song_name']);
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -53,33 +74,46 @@ class SongsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function edit($id)
+    public function edit(Song $song)
     {
-        //
+        return view('admin/song/edit',compact('song'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Song $song
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $data = $request->validate([
+            'song_name' => 'required',
+            'song' => '',
+        ]);
+        if(request('song')) {
+            $songPath = request('song')->store('Songs', 'public');
+            DB::table('songs')->update([ 'song_name' => $data['song_name'], 'song' => $songPath]);
+        }
+        DB::table('songs')->update([ 'song_name' => $data['song_name']]);
+        Session::flash('alert-success', 'Successfully Updated Song: '.$data['song_name']);
+        return redirect('/admin/album/{$song->album->id}');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
-        //
+        Song::where('id', $id)->delete();
+        Session::flash('alert-success', 'Successfully Deleted');
+        return redirect()->back();
     }
 }
