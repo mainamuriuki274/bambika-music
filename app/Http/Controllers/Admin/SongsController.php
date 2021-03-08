@@ -95,13 +95,14 @@ class SongsController extends Controller
         ]);
         if(request('song_file')) {
             $songPath = request('song_file')->store('Songs', 'public');
-
             $song->update([
                 'song_name' => $data['song_name'],
-                'song_path' => $songPath
+                'song_path' => $songPath,
             ]);
         }
-        $song->update($data);
+        else {
+            $song->update($data);
+        }
 
         Session::flash('alert-success', 'Successfully Updated Song: '.$data['song_name']);
         return redirect('/admin/album/'.$song->album->id);

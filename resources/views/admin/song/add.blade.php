@@ -10,13 +10,15 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                <img src="/storage/{{ $album->art }}" class="img-fluid w-100">
-                <h2>Album: {{ $album->name }}</h2>
-                <h2>Artist: {{ $album->artist->name }}</h2>
-                <a href="/admin/album/{{ $album->id }}/edit"><button class="btn btn-primary w-100"><i class="fa fa-edit"></i> Edit Album Details</button></a>
+            <div class="col-3 ">
+                <div style="max-width: 16%;" class="position-fixed">
+                    <img src="/storage/{{ $album->art }}" class="img-fluid w-100">
+                    <h2>Album: {{ $album->name }}</h2>
+                    <h2>Artist: {{ $album->artist->name }}</h2>
+                    <a href="/admin/album/{{ $album->id }}/edit"><button class="btn btn-primary w-100"><i class="fa fa-edit"></i> Edit Album Details</button></a>
+                </div>
             </div>
-            <div class="col-9">
+            <div class="col-9 overflow-auto">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary float-right mb-3" data-toggle="modal" data-target="#exampleModal">
                     <i class="fa fa-plus-square-o"></i> Add Song

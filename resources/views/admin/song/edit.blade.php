@@ -40,7 +40,7 @@
                                     <div class="form-group row">
                                         <label for="song_file" class="col-md-4 col-form-label">Song File</label>
                                         <audio controls controlsList="nodownload">
-                                            <source src="/storage/{{ $song->song }}"  autoplay="false">
+                                            <source src="/storage/{{ $song->song_path }}"  autoplay="false">
                                             Your browser does not support the audio element.
                                         </audio>
 
