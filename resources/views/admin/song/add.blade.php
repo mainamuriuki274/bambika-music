@@ -15,12 +15,15 @@
                     <img src="/storage/{{ $album->art }}" class="img-fluid w-100">
                     <h2>Album: {{ $album->name }}</h2>
                     <h2>Artist: {{ $album->artist->name }}</h2>
-                    <a href="/admin/album/{{ $album->id }}/edit"><button class="btn btn-primary w-100"><i class="fa fa-edit"></i> Edit Album Details</button></a>
+                    <a href="/admin/album/{{ $album->id }}/edit">
+                        <button class="btn btn-primary w-100"><i class="fa fa-edit"></i> Edit Album Details</button>
+                    </a>
                 </div>
             </div>
             <div class="col-9 overflow-auto">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary float-right mb-3" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-primary float-right mb-3" data-toggle="modal"
+                        data-target="#exampleModal">
                     <i class="fa fa-plus-square-o"></i> Add Song
                 </button>
                 <table class="table table-striped table-hover">
@@ -36,19 +39,22 @@
                     <tbody>
                     @php($count=0)
                     @foreach($album->song as $song)
-                        @php($count++)
                         <tr>
-                            <td>{{ $count }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{$song->song_name}}</td>
                             <td>
                                 <audio controls controlsList="nodownload">
-                                    <source src="/storage/{{ $song->song_path }}"  autoplay="false">
+                                    <source src="/storage/{{ $song->song_path }}" autoplay="false">
                                     Your browser does not support the audio element.
                                 </audio>
 
                             </td>
-                            <td><a href="/admin/song/{{$song->id}}/edit/"><button class="btn btn-outline-primary"><i class="fa fa-edit"></i></button></a></td>
-                            <td><a href="/admin/song/{{$song->id}}"><button class="btn btn btn-outline-danger"><i class="fa fa-trash"></i></button></a></td>
+                            <td><a href="/admin/song/{{$song->id}}/edit/">
+                                    <button class="btn btn-outline-primary"><i class="fa fa-edit"></i></button>
+                                </a></td>
+                            <td><a href="/admin/song/{{$song->id}}">
+                                    <button class="btn btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+                                </a></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -59,7 +65,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -92,8 +99,11 @@
                                 <div class="form-group row">
                                     <label for="song_file" class="col-md-4 col-form-label">Song File</label>
 
-                                    <label style="border: 1px solid #ccc; display: inline-block; padding: 6px 12px;cursor: pointer;" class="custom-file-upload">
-                                        <input style="display: none; " type="file" accept="audio/*" class="form-control-file" id="song_file" name="song_file"/>
+                                    <label
+                                        style="border: 1px solid #ccc; display: inline-block; padding: 6px 12px;cursor: pointer;"
+                                        class="custom-file-upload">
+                                        <input style="display: none; " type="file" accept="audio/*"
+                                               class="form-control-file" id="song_file" name="song_file"/>
                                         <i class="fa fa-cloud-upload"></i> Upload Song
                                     </label>
                                     @if ($errors->has('song_file'))
@@ -101,7 +111,7 @@
                                     @endif
                                 </div>
 
-                                <div  class="row pt-4">
+                                <div class="row pt-4">
                                     <button style="width: 100%;" class="btn btn-primary">Add Song</button>
                                 </div>
 

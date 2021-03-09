@@ -19,7 +19,7 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-       return view('/admin/album/create');
+        return view('admin/album/create');
     }
 
     /**
@@ -134,6 +134,8 @@ class AlbumsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Album::where('id', $id)->delete();
+        Session::flash('alert-success', 'Successfully Deleted');
+        return redirect()->back();
     }
 }

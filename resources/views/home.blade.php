@@ -30,7 +30,7 @@
         <div class="col-3">
             <div class="row h-100">
                 <div class="col-4  mt-3 song_art">
-                    <img src="/storage/Album_Art/2XTEmbbYusQ1qYJtm5zipudXiNJksOK6NYV8vykD.png" class="playing_art" id="track_image">
+                    <img class="playing_art" id="track_image">
                 </div>
                 <div class="col-8">
                     <div class="song_details">
@@ -198,8 +198,8 @@
                 </div>
 
                 @foreach($songs as $song)
-                    <a href="/song/{{$song->id}}">
-                    <div class="card m-1 music_card">
+                    <div class="card m-1 music_card"
+                        onclick="load_track('/storage/{{$song->song_path}}','{{$song->song_name}}','/storage/{{$song->album->art}}','{{$song->album->artist->name}}')">
                         <div class="card-body music_card_body">
                             <div style="max-width: 100%;" class="img_container">
                                 <img style="max-width: 100%;" src="/storage/{{$song->album->art}}">
@@ -210,7 +210,6 @@
                             <h7 style="color: lightgray;">Album: <a style="color: lightgray;" href="#/song/{{$song->album->name}}">{{$song->album->name}}</a></h7>
                         </div>
                     </div>
-                    </a>
                 @endforeach
 
                 </div>

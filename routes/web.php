@@ -32,9 +32,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('/admin/home','App\Http\Controllers\Admin\AlbumsController@index');
+Route::get('/admin/home','App\Http\Controllers\Admin\HomeController@index');
+
+Route::get('/admin/album','App\Http\Controllers\Admin\AlbumsController@index');
 Route::get('/admin/album/{album}', 'App\Http\Controllers\Admin\AlbumsController@create');
 Route::get('/admin/album/{album}/edit', 'App\Http\Controllers\Admin\AlbumsController@edit');
+Route::get('/admin/album/delete/{album}', 'App\Http\Controllers\Admin\AlbumsController@destroy');
 Route::patch('/admin/album/{album}', 'App\Http\Controllers\Admin\AlbumsController@update');
 Route::post('/admin/album','App\Http\Controllers\Admin\AlbumsController@store');
 

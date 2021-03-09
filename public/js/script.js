@@ -10,7 +10,8 @@ let track_image = document.querySelector('#track_image');
 let auto_play = document.querySelector('#auto');
 let present = document.querySelector('#present');
 let total = document.querySelector('#total');
-let artist = document.querySelector('#artist');
+let song_artist = document.querySelector('#artist');
+
 
 
 
@@ -24,62 +25,66 @@ let Playing_song = false;
 let track = document.createElement('audio');
 
 
-//All song list
-let All_song = [
-    {
-        name: "Narcos",
-        path: "http://localhost/my_music_player/assets/js/music/song1.m4a",
-        img: "http://localhost/my_music_player/assets/js/img/img1.png",
-        singer: "Migos"
-    },
-    {
-        name: "Stir Fry",
-        path: "http://localhost/my_music_player/assets/js/music/song2.m4a",
-        img: "http://localhost/my_music_player/assets/js/img/img1.png",
-        singer: "Migos"
-    },
-    {
-        name: "Walk it Talk it",
-        path: "http://localhost/my_music_player/assets/js/music/song3.m4a",
-        img: "http://localhost/my_music_player/assets/js/img/img1.png",
-        singer: "Migos feat Drake"
-    },
-    {
-        name: "Gang Gang",
-        path: "http://localhost/my_music_player/assets/js/music/song4.m4a",
-        img: "http://localhost/my_music_player/assets/js/img/img1.png",
-        singer: "Migos"
-    },
-    {
-        name: "Notice Me",
-        path: "http://localhost/my_music_player/assets/js/music/song5.m4a",
-        img: "http://localhost/my_music_player/assets/js/img/img1.png",
-        singer: "Migos feat Post Malone"
-    }
-];
+// //All song list
+// let All_song = [
+//     {
+//         name: "Narcos",
+//         path: "http://localhost/my_music_player/assets/js/music/song1.m4a",
+//         img: "http://localhost/my_music_player/assets/js/img/img1.png",
+//         singer: "Migos"
+//     },
+//     {
+//         name: "Stir Fry",
+//         path: "http://localhost/my_music_player/assets/js/music/song2.m4a",
+//         img: "http://localhost/my_music_player/assets/js/img/img1.png",
+//         singer: "Migos"
+//     },
+//     {
+//         name: "Walk it Talk it",
+//         path: "http://localhost/my_music_player/assets/js/music/song3.m4a",
+//         img: "http://localhost/my_music_player/assets/js/img/img1.png",
+//         singer: "Migos feat Drake"
+//     },
+//     {
+//         name: "Gang Gang",
+//         path: "http://localhost/my_music_player/assets/js/music/song4.m4a",
+//         img: "http://localhost/my_music_player/assets/js/img/img1.png",
+//         singer: "Migos"
+//     },
+//     {
+//         name: "Notice Me",
+//         path: "http://localhost/my_music_player/assets/js/music/song5.m4a",
+//         img: "http://localhost/my_music_player/assets/js/img/img1.png",
+//         singer: "Migos feat Post Malone"
+//     }
+// ];
 
 
 // All functions
 
 
 // function load the track
-function load_track(index_no){
+function myfunctionName(a){
+
+    alert(a);
+
+}
+function load_track(song_path,song_name,album_art,artist){
     clearInterval(timer);
     reset_slider();
 
-    track.src = All_song[index_no].path;
-    title.innerHTML = All_song[index_no].name;
-    track_image.src = All_song[index_no].img;
-    artist.innerHTML = All_song[index_no].singer;
+    track.src = song_path;
+    title.innerHTML = song_name;
+    track_image.src = album_art;
+    song_artist.innerHTML = artist;
     track.load();
+    playsong();
 
     timer = setInterval(range_slider ,1000);
     total.innerHTML = All_song.length;
     present.innerHTML = index_no + 1;
 }
 
-
-load_track(index_no);
 
 
 //mute sound function
