@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Song;
 use Illuminate\Http\Request;
 use DB;
@@ -25,7 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $songs = Song::with(['album','artist'])->get();
+        $songs = Song::with(['album' => function($q){
+            $q->where('albums.approved', '=', true);
+        } ,'artist'])->get();
 
         return view('/home', ['songs' => $songs]);
     }

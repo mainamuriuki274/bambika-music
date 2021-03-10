@@ -33,6 +33,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/admin/home','App\Http\Controllers\Admin\HomeController@index');
+Route::get('/admin/album/status/{album}','App\Http\Controllers\Admin\HomeController@approve');
 
 Route::get('/admin/album','App\Http\Controllers\Admin\AlbumsController@index');
 Route::get('/admin/album/{album}', 'App\Http\Controllers\Admin\AlbumsController@create');

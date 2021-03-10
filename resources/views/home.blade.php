@@ -210,6 +210,7 @@
                 </div>
 
                 @foreach($songs as $song)
+                    @if($song->album != NULL)
                     <div class="card m-1 music_card"
                          onclick="load_track('/storage/{{$song->song_path}}','{{$song->song_name}}','/storage/{{$song->album->art}}','{{$song->album->artist->name}}')">
                         <div class="card-body music_card_body">
@@ -229,6 +230,7 @@
                             </h7>
                         </div>
                     </div>
+                    @endif
                 @endforeach
 
             </div>

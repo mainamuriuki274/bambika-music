@@ -18,6 +18,14 @@ class HomeController extends Controller
         $albums = Album::all();
         return view('/admin/home',['albums' => $albums]);
     }
+    public function approve(Album $album){
+        $status = $album->approved;
+        $status = ($status ? 0 : 1);
+        $album->update([
+            'approved' => $status,
+        ]);
+        return redirect('/admin/home');
+    }
 
     /**
      * Show the form for creating a new resource.
